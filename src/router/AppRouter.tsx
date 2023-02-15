@@ -1,24 +1,18 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 import Layout from 'components/layout/Layout';
-import { authRoutes, publicRoutes } from './rotes';
 
-const isAuth = true;
+import { IRoute } from 'types/app.interface';
 
-interface IRoute {
-  path: string;
-  element: JSX.Element;
-}
+const AppRouter = (routes: IRoute[]): RouteObject[] => {
+  console.log('AppRouter run');
 
-const getRoutes = (): IRoute[] => {
-  return isAuth ? [...authRoutes, ...publicRoutes] : publicRoutes;
+  return [
+    {
+      element: <Layout />,
+      children: routes,
+    },
+  ];
 };
-
-const AppRouter = createBrowserRouter([
-  {
-    element: <Layout />,
-    children: getRoutes(),
-  },
-]);
 
 export default AppRouter;
