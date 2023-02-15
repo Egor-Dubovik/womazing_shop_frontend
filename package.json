@@ -27,9 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "clean": "rd /s /q dist",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint . --ext .tsx",
     "fix": "eslint . --fix --color",
-    "prettier": "prettier src/**/*.ts --write",
+    "prettier": "prettier src/**/*.{ts,tsx} --write",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -62,8 +62,8 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "npm run lint:fix",
+    "src/**/*.{js,ts,jsx,tsx}": [
+      "npm run fix",
       "git add"
     ]
   }
