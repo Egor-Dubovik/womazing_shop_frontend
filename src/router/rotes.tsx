@@ -10,6 +10,7 @@ import {
   MAIN_ROUTE,
   BASKET_ROUTE,
   PRODUCT_ROUTE,
+  BAD_ROUTE,
 } from '../types/constants';
 import Admin from 'pages/Admin';
 import Basket from 'pages/Basket';
@@ -43,7 +44,7 @@ export const publicRoutes = [
     element: <div>not found page</div>,
   },
   {
-    path: '*',
+    path: BAD_ROUTE,
     element: <Navigate to={NOT_FOUND_ROUTE} replace />,
   },
 ];

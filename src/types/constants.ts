@@ -6,3 +6,4 @@ export const STORE_ROUTE = '/store';
 export const BASKET_ROUTE = '/basket';
 export const PRODUCT_ROUTE = '/product';
 export const NOT_FOUND_ROUTE = '/404';
+export const BAD_ROUTE = '*';
