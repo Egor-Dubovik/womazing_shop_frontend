@@ -4,6 +4,7 @@ import { useRoutes } from 'react-router-dom';
 import AppRouter from 'router/AppRouter';
 import { authRoutes, publicRoutes } from 'router/rotes';
 import { IRoute } from 'types/app.interface';
+import './styles/App.css';
 
 const getRoutes = (isAuth: boolean): IRoute[] => {
   return isAuth ? [...authRoutes, ...publicRoutes] : publicRoutes;

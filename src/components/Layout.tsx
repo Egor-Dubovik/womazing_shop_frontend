@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import Navigation from './Navigation/Navigation';
 
@@ -7,13 +8,13 @@ class Layout extends Component {
     return (
       <>
         <Navigation />
-        <main className={'classes.main'}>
-          <div className="main__container">
+        <main className="main">
+          <Container>
             <Outlet />
-          </div>
+          </Container>
         </main>
         <footer className="footer">
-          <div className="footer__container">footer</div>
+          <Container>footer</Container>
         </footer>
       </>
     );
