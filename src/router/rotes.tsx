@@ -11,12 +11,14 @@ import {
   BASKET_ROUTE,
   PRODUCT_ROUTE,
   BAD_ROUTE,
+  PROFILE_ROUTE,
 } from '../types/constants';
 import Admin from 'pages/Admin';
 import Basket from 'pages/Basket';
 import Auth from 'pages/Auth';
 import Store from 'pages/Store';
 import ProductPage from 'pages/ProductPage';
+import Profile from 'pages/Profile';
 
 export const publicRoutes = [
   {
@@ -30,6 +32,10 @@ export const publicRoutes = [
   {
     path: REGISTRATION_ROUTE,
     element: <Auth />,
+  },
+  {
+    path: PROFILE_ROUTE,
+    element: <Profile />,
   },
   {
     path: STORE_ROUTE,
