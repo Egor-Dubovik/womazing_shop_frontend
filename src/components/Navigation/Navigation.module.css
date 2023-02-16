@@ -1,0 +1,23 @@
+.Navbar {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Link:not(:last-child),
+.ActiveLink:not(:last-child) {
+  margin-right: 20px;
+}
+
+.Link {
+  color: black;
+  transition: all 0.3s ease;
+}
+
+.Link:hover,
+.ActiveLink:hover {
+  color: rgb(92, 116, 250);
+}
+
+.ActiveLink {
+  color: rgb(92, 116, 250);
+}

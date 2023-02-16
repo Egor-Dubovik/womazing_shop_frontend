@@ -1,6 +1,13 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import MainPage from 'pages/MainPage';
+import Admin from 'pages/Admin';
+import Basket from 'pages/Basket';
+import Auth from 'pages/Auth';
+import Store from 'pages/Store';
+import ProductPage from 'pages/ProductPage';
+import Profile from 'pages/Profile';
+import About from 'pages/About';
 import {
   ADMIN_ROUTE,
   LOGIN_ROUTE,
@@ -12,18 +19,27 @@ import {
   PRODUCT_ROUTE,
   BAD_ROUTE,
   PROFILE_ROUTE,
+  ABOUT_ROUTE,
+  CONTACTS_ROUTE,
 } from '../types/constants';
-import Admin from 'pages/Admin';
-import Basket from 'pages/Basket';
-import Auth from 'pages/Auth';
-import Store from 'pages/Store';
-import ProductPage from 'pages/ProductPage';
-import Profile from 'pages/Profile';
+import Contacts from 'pages/Contacts';
 
 export const publicRoutes = [
   {
     path: MAIN_ROUTE,
     element: <MainPage />,
+  },
+  {
+    path: STORE_ROUTE,
+    element: <Store />,
+  },
+  {
+    path: ABOUT_ROUTE,
+    element: <About />,
+  },
+  {
+    path: CONTACTS_ROUTE,
+    element: <Contacts />,
   },
   {
     path: LOGIN_ROUTE,
@@ -36,10 +52,6 @@ export const publicRoutes = [
   {
     path: PROFILE_ROUTE,
     element: <Profile />,
-  },
-  {
-    path: STORE_ROUTE,
-    element: <Store />,
   },
   {
     path: PRODUCT_ROUTE + '/:id',

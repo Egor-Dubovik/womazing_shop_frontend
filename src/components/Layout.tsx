@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Outlet } from 'react-router-dom';
+import Navigation from './Navigation/Navigation';
 
 class Layout extends Component {
   render() {
     return (
       <>
-        <header>header</header>
+        <Navigation />
         <main className={'classes.main'}>
           <div className="main__container">
             <Outlet />
