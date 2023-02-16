@@ -9,11 +9,15 @@ class ProductStore {
   _types: ITypeProduct[];
   _brands: IBrandProduct[];
   _product: IProduct[];
+  _selectedType: ITypeProduct | Record<string, never>;
+  _selectedBrand: IBrandProduct | Record<string, never>;
 
   constructor() {
     this._types = [
       { id: 1, name: 'куртка' },
-      { id: 2, name: 'куртка' },
+      { id: 2, name: 'Пальто' },
+      { id: 3, name: 'Жакеты' },
+      { id: 4, name: 'Платья' },
     ];
     this._brands = [
       { id: 1, name: 'Gugu' },
@@ -32,7 +36,19 @@ class ProductStore {
           'https://www.google.com/search?q=%D1%84%D0%BE%D1%82%D0%BA%D0%B0+%D0%BA%D1%83%D1%80%D1%82%D0%BA%D0%B8&rlz=1C1GCEA_enBY1030BY1030&sxsrf=AJOqlzWw38zFM62sT_GlhVULajqc6nRaAQ:1676479480328&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiQvJff_Jf9AhWPPewKHZ7hCOIQ_AUoAXoECAEQAw&biw=1920&bih=880&dpr=1#imgrc=QJxG0yvdxWPp8M',
       },
     ];
+
+    this._selectedType = {};
+    this._selectedBrand = {};
     makeAutoObservable(this);
+  }
+
+  //actions
+  setSelectedBrand(type: IBrandProduct | Record<string, never>): void {
+    this._selectedBrand = type;
+  }
+
+  setSelectedType(type: ITypeProduct | Record<string, never>): void {
+    this._selectedType = type;
   }
 
   setTypes(value: ITypeProduct[]): void {
@@ -45,6 +61,14 @@ class ProductStore {
 
   setProduct(product: IProduct[]): void {
     this._product = product;
+  }
+
+  get selectedBrand(): IBrandProduct | Record<string, never> {
+    return this._selectedBrand;
+  }
+
+  get selectedType(): ITypeProduct | Record<string, never> {
+    return this._selectedType;
   }
 
   get types(): ITypeProduct[] {
