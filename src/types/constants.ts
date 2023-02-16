@@ -1,6 +1,6 @@
 export const MAIN_ROUTE = '/';
-export const ADMIN_ROUTE = '/admin';
-export const PROFILE_ROUTE = '/profile';
+export const ABOUT_ROUTE = '/about';
+export const CONTACTS_ROUTE = '/contacts';
 export const LOGIN_ROUTE = '/login';
 export const REGISTRATION_ROUTE = '/registration';
 export const STORE_ROUTE = '/store';
@@ -8,3 +8,5 @@ export const BASKET_ROUTE = '/basket';
 export const PRODUCT_ROUTE = '/product';
 export const NOT_FOUND_ROUTE = '/404';
 export const BAD_ROUTE = '*';
+export const PROFILE_ROUTE = '/profile';
+export const ADMIN_ROUTE = '/admin';
