@@ -5,8 +5,6 @@ import Layout from 'components/Layout';
 import { IRoute } from 'types/app.interface';
 
 const AppRouter = (routes: IRoute[]): RouteObject[] => {
-  console.log('AppRouter run');
-
   return [
     {
       element: <Layout />,

@@ -19,7 +19,6 @@ function App() {
     setUserRoutes(getRoutes(user._isAuth));
   }, [user._isAuth]);
 
-  console.log(user._isAuth, userRoutes);
   return <div className="App">{routes}</div>;
 }
 
