@@ -15,3 +15,8 @@ export interface ITypeProduct {
 }
 
 export type IBrandProduct = ITypeProduct;
+
+export interface ICreate {
+  show: boolean;
+  onHide: React.Dispatch<React.SetStateAction<boolean>>;
+}
