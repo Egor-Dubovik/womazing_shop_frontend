@@ -3,6 +3,7 @@ import { Card, Col, Image } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { PRODUCT_ROUTE } from 'types/constants';
 import { IProduct } from 'types/product.interface';
+import { getPrice } from 'utils/product';
 
 interface IProductItem {
   product: IProduct;
@@ -10,18 +11,6 @@ interface IProductItem {
 
 const ProductItem: FC<IProductItem> = ({ product }) => {
   const navigate = useNavigate();
-
-  const getPrice = (product: IProduct) =>
-    product.price === product.discount_price ? (
-      <p>${product.price}</p>
-    ) : (
-      <>
-        <div style={{ textDecoration: 'line-through', marginRight: 10 }}>
-          ${product.discount_price}
-        </div>
-        <div>${product.price}</div>
-      </>
-    );
 
   return (
     <Col md={3} onClick={() => navigate(`${PRODUCT_ROUTE}/${product.id}`)}>
