@@ -1,3 +1,4 @@
+import { API_URL } from 'htttp/url';
 import React, { FC } from 'react';
 import { Card, Col, Image } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +16,7 @@ const ProductItem: FC<IProductItem> = ({ product }) => {
   return (
     <Col md={3} onClick={() => navigate(`${PRODUCT_ROUTE}/${product.id}`)}>
       <Card style={{ cursor: 'pointer' }}>
-        <Image src={product.image} />
+        <Image src={API_URL + product.image} />
         <h5>{product.name}</h5>
         <div className="d-flex">{getPrice(product)}</div>
         <div>{product.size.toString()}</div>

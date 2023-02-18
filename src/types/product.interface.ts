@@ -7,6 +7,13 @@ export interface IProduct {
   colors: string[];
   rating: number;
   image: string;
+  info: IProductInfo[];
+}
+
+export interface IProductInfo {
+  id: number;
+  title: string;
+  description: string;
 }
 
 export interface ITypeProduct {

@@ -13,68 +13,9 @@ class ProductStore {
   _selectedBrand: IBrandProduct | Record<string, never>;
 
   constructor() {
-    this._types = [
-      { id: 1, name: 'куртка' },
-      { id: 2, name: 'Пальто' },
-      { id: 3, name: 'Жакеты' },
-      { id: 4, name: 'Платья' },
-    ];
-    this._brands = [
-      { id: 1, name: 'Gugu' },
-      { id: 2, name: 'Defacto' },
-    ];
-    this._product = [
-      {
-        id: 1,
-        name: 'куртка модная',
-        price: 5000,
-        discount_price: 4000,
-        size: ['m', 'l'],
-        colors: ['red', 'black'],
-        rating: 5,
-        image: 'https://bigstar.by/product_images/130312902(1)_3.jpg',
-      },
-      {
-        id: 2,
-        name: 'куртка модная',
-        price: 5000,
-        discount_price: 4000,
-        size: ['m', 'l'],
-        colors: ['red', 'black'],
-        rating: 5,
-        image: 'https://bigstar.by/product_images/130312902(1)_3.jpg',
-      },
-      {
-        id: 3,
-        name: 'куртка модная',
-        price: 5000,
-        discount_price: 4000,
-        size: ['m', 'l'],
-        colors: ['red', 'black'],
-        rating: 5,
-        image: 'https://bigstar.by/product_images/130312902(1)_3.jpg',
-      },
-      {
-        id: 4,
-        name: 'куртка модная',
-        price: 5000,
-        discount_price: 4000,
-        size: ['m', 'l'],
-        colors: ['red', 'black'],
-        rating: 5,
-        image: 'https://bigstar.by/product_images/130312902(1)_3.jpg',
-      },
-      {
-        id: 5,
-        name: 'куртка модная',
-        price: 5000,
-        discount_price: 4000,
-        size: ['m', 'l'],
-        colors: ['red', 'black'],
-        rating: 5,
-        image: 'https://bigstar.by/product_images/130312902(1)_3.jpg',
-      },
-    ];
+    this._types = [];
+    this._brands = [];
+    this._product = [];
 
     this._selectedType = {};
     this._selectedBrand = {};
@@ -98,7 +39,7 @@ class ProductStore {
     this._brands = value;
   }
 
-  setProduct(product: IProduct[]): void {
+  setAllProduct(product: IProduct[]): void {
     this._product = product;
   }
 

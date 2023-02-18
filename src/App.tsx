@@ -23,13 +23,12 @@ const App = observer(() => {
     setTimeout(() => {
       check()
         .then((data) => {
-          console.log(data);
           // user.setUser(true);
           user.setIsAuth(true);
           console.log(111);
         })
         .finally(() => setLoading(false));
-    }, 2000);
+    }, 500);
   }, []);
 
   useEffect(() => {

@@ -1,29 +1,25 @@
-import React, { FC } from 'react';
+import { getOneProduct } from 'htttp/productApi';
+import { API_URL } from 'htttp/url';
+import React, { FC, useEffect, useState } from 'react';
 import { Button, Col, Image, Row } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { IProduct } from 'types/product.interface';
 import { getPrice } from 'utils/product';
 
 const ProductPage: FC = () => {
-  const product = {
-    id: 1,
-    name: 'куртка модная',
-    price: 5000,
-    discount_price: 4000,
-    size: ['m', 'l'],
-    colors: ['red', 'black'],
-    rating: 5,
-    image: 'https://bigstar.by/product_images/130312902(1)_3.jpg',
-  };
+  const [product, setProduct] = useState<IProduct | Record<string, never>>({});
+  const { id } = useParams();
 
-  const description = [
-    { id: 1, title: 'title1', description: 'aaaaaaaaaa' },
-    { id: 1, title: 'title2', description: 'bbbbbbbbbb' },
-  ];
+  useEffect(() => {
+    getOneProduct(+(id as string)).then((data) => setProduct(data));
+    console.log(product);
+  }, []);
 
   return (
     <Col>
       <Row>
         <Col>
-          <Image src={product.image}></Image>
+          <Image style={{ width: 300, height: 400 }} src={API_URL + product.image}></Image>
         </Col>
         <Col>
           <Row>{getPrice(product)}</Row>
@@ -31,11 +27,12 @@ const ProductPage: FC = () => {
           <Row>Choose a color {product.colors}</Row>
           <Row>
             <h5>Описание</h5>
-            {description.map((info) => (
-              <Row key={info.id}>
-                {info.title}: {info.description}
-              </Row>
-            ))}
+            {product.info &&
+              product.info.map((info) => (
+                <Row key={info.id}>
+                  {info.title}: {info.description}
+                </Row>
+              ))}
           </Row>
 
           <Button variant="outline-dark">add to basket</Button>
