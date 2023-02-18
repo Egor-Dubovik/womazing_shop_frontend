@@ -17,7 +17,7 @@ export interface IProductInfo {
 }
 
 export interface ITypeProduct {
-  id: number;
+  id?: number;
   name: string;
 }
 
