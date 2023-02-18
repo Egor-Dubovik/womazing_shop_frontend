@@ -1,19 +1,31 @@
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { login, registration } from 'htttp/userAPI';
 import { Context } from 'index';
+import { observer } from 'mobx-react-lite';
 import React, { FC, FormEvent, useContext, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
-import { useNavigate } from 'react-router-dom';
-import { MAIN_ROUTE } from 'types/constants';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { LOGIN_ROUTE, MAIN_ROUTE } from 'types/constants';
+import { IUser } from 'types/user.inerface';
 
 interface IAuthForm {
   isLogin: boolean;
 }
 
-const AuthForm: FC<IAuthForm> = ({ isLogin }) => {
+export interface IAxiosError<T> extends Error {
+  config: AxiosRequestConfig;
+  code?: string;
+  request?: unknown;
+  response: AxiosResponse<T>;
+  isAxiosError: boolean;
+  toJSON: () => object;
+}
+
+const AuthForm: FC<IAuthForm> = observer(({ isLogin }) => {
   const { user } = useContext(Context);
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -30,17 +42,43 @@ const AuthForm: FC<IAuthForm> = ({ isLogin }) => {
     return false;
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+  // const userLogin = async (form: EventTarget & HTMLFormElement) => {
+  //   if (form.checkValidity()) {
+  //     const userData = await login(email, password);
+  //     return userData;
+  //   }
+  //   setValidated(true);
+  //   return;
+  // };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
 
-    if (form.checkValidity() && checkConfirmPassword()) {
-      //if true save data and reset
+    try {
+      let userData;
+      if (isLogin) {
+        if (form.checkValidity()) {
+          userData = await login(email, password);
+        } else {
+          setValidated(true);
+          return;
+        }
+      } else {
+        if (form.checkValidity() && checkConfirmPassword()) {
+          userData = await registration(email, password);
+        } else {
+          setValidated(true);
+          return;
+        }
+      }
+      user.setUser(userData as IUser);
       user.setIsAuth(true);
       navigate(MAIN_ROUTE);
+    } catch (error) {
+      const err = error as IAxiosError<{ message: string }>;
+      alert(err.response.data.message);
     }
-
-    setValidated(true);
   };
 
   return (
@@ -50,20 +88,6 @@ const AuthForm: FC<IAuthForm> = ({ isLogin }) => {
       className="column"
       onSubmit={(event) => handleSubmit(event)}
     >
-      {/* name */}
-      <Form.Group className="mb-3" as={Col}>
-        {!isLogin && (
-          <Form.Control
-            type="name"
-            placeholder="Name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            required
-          />
-        )}
-        <Form.Control.Feedback type="invalid">Please enter your name</Form.Control.Feedback>
-      </Form.Group>
-
       {/* email */}
       <Form.Group className="mb-3" as={Col}>
         <Form.Control
@@ -133,6 +157,6 @@ const AuthForm: FC<IAuthForm> = ({ isLogin }) => {
       </Button>
     </Form>
   );
-};
+});
 
 export default AuthForm;

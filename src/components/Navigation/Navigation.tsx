@@ -1,8 +1,8 @@
 import React, { FC, useContext } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { NavLink } from 'react-router-dom';
-import { Button, Dropdown, Offcanvas } from 'react-bootstrap';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Button, Col, Dropdown, Offcanvas } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import Container from 'react-bootstrap/Container';
 import { Context } from 'index';
@@ -22,15 +22,28 @@ import {
   ABOUT_ROUTE,
   CONTACTS_ROUTE,
 } from '../../types/constants';
+import { registration } from 'htttp/userAPI';
+import { IUser } from 'types/user.inerface';
 
 // чтобы mobx отследивал значения состояний - observer
 
 const Navigation: FC = observer(() => {
   const { user } = useContext(Context);
-  // const logOut = () => {
-  //   user.setUser({});
-  //   user.setIsAuth(false);
-  // };
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const logOut = () => {
+    user.setUser({} as IUser);
+    user.setIsAuth(false);
+    if (
+      location.pathname === PROFILE_ROUTE ||
+      location.pathname === ADMIN_ROUTE ||
+      location.pathname === BASKET_ROUTE
+    ) {
+      navigate(LOGIN_ROUTE);
+    }
+  };
+
   const expand = 'md'; // 'sm', 'md', 'lg', 'xl'
 
   const getLinkClasses = (isActive: boolean): string => {
@@ -38,8 +51,6 @@ const Navigation: FC = observer(() => {
   };
 
   return (
-    //fixed="top"
-    // fluid - container
     <>
       <Navbar bg="light" expand={expand} className="mb-3">
         <Container>
@@ -89,7 +100,10 @@ const Navigation: FC = observer(() => {
 
                 <Dropdown as={ButtonGroup}>
                   <Button variant="success">
-                    <NavLink style={{ color: 'white' }} to={PROFILE_ROUTE}>
+                    <NavLink
+                      style={{ color: 'white' }}
+                      to={user.isAuth ? PROFILE_ROUTE : LOGIN_ROUTE}
+                    >
                       Profile
                     </NavLink>
                   </Button>
@@ -98,15 +112,17 @@ const Navigation: FC = observer(() => {
 
                   <Dropdown.Menu flip={true}>
                     {user.isAuth ? (
-                      <Dropdown.Item onClick={() => user.setIsAuth(false)}>Log out</Dropdown.Item>
+                      <Dropdown.Item onClick={() => logOut()}>Log out</Dropdown.Item>
                     ) : (
                       <>
-                        <Dropdown.Item>
-                          <NavLink to={REGISTRATION_ROUTE}>Sign in</NavLink>
-                        </Dropdown.Item>
-                        <Dropdown.Item>
-                          <NavLink to={LOGIN_ROUTE}>Log in</NavLink>
-                        </Dropdown.Item>
+                        <div className="d-flex flex-column">
+                          <NavLink className="p-2" to={REGISTRATION_ROUTE}>
+                            Sign in
+                          </NavLink>
+                          <NavLink className="p-2" to={LOGIN_ROUTE}>
+                            Log in
+                          </NavLink>
+                        </div>
                       </>
                     )}
                   </Dropdown.Menu>
@@ -121,17 +137,3 @@ const Navigation: FC = observer(() => {
 });
 
 export default Navigation;
-
-// {user.isAuth ? (
-//   <Nav className="ml-auto" style={{ color: 'white' }}>
-//     <Button variant={'outline-light'} onClick={() => logOut()} className="ml-2">
-//       Выйти
-//     </Button>
-//   </Nav>
-// ) : (
-//   <Nav className="ml-auto" style={{ color: 'white' }}>
-//     <Button variant={'outline-light'} onClick={() => history.push(LOGIN_ROUTE)}>
-//       Авторизация
-//     </Button>
-//   </Nav>
-// )}

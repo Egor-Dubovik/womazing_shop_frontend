@@ -10,7 +10,7 @@ class UserStore {
   _user: IUser | Record<string, never>;
 
   constructor() {
-    this._isAuth = true;
+    this._isAuth = false;
     this._user = {};
     makeAutoObservable(this);
   }
