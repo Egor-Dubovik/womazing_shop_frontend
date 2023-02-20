@@ -12,7 +12,7 @@ export const createBrand = async (brand: IBrandProduct) => {
   return data;
 };
 
-export const createProduct = async (product: IProduct) => {
+export const createProduct = async (product: FormData) => {
   const { data } = await $authHost.post('api/product', product);
   return data;
 };

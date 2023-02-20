@@ -3,11 +3,19 @@ export interface IProduct {
   name: string;
   price: number;
   discount_price: number;
-  size: string[];
+  size: Size[];
   colors: string[];
   rating: number;
   image: string;
   info: IProductInfo[];
+}
+
+export enum Size {
+  S = 'S',
+  M = 'M',
+  L = 'L',
+  XL = 'XL',
+  XXL = 'XXL',
 }
 
 export interface IProductInfo {
