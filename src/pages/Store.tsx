@@ -1,5 +1,5 @@
 import BrandSelect from 'components/BrandSelect';
-import ProductList from 'components/ProductList';
+import ProductList from 'components/product/ProductList';
 import TypeBar from 'components/TypeBar';
 import { getAllProducts, getBrands, getTypes } from 'htttp/productApi';
 import { Context } from 'index';

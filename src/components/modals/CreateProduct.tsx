@@ -62,7 +62,10 @@ const CreateProduct: FC<ICreate> = observer(({ show, onHide }) => {
     formData.append('branId', `${product.selectedBrand.id}`);
     formData.append('typeId', `${product.selectedType.id}`);
     formData.append('size', JSON.stringify(product.size));
-    formData.append('color', `[{"value": "red"}, {"value": "black"}]`);
+    formData.append(
+      'color',
+      `[{"name": "green", "value": "green"}, {"name": "black", "value": "black"}]`
+    );
     formData.append('info', JSON.stringify(info));
     console.log(
       name,
@@ -137,6 +140,7 @@ const CreateProduct: FC<ICreate> = observer(({ show, onHide }) => {
             <Button className="mb-3" variant="outline-dark" onClick={addInfo}>
               Add info
             </Button>
+
             {info.map((currentInfo) => (
               <Row key={currentInfo.number} className="mb-2">
                 <Col md={4}>
