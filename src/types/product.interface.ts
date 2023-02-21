@@ -15,6 +15,10 @@ export interface IColor {
   value: string;
 }
 
+export interface IProductColors {
+  color: IColor[];
+}
+
 export enum Size {
   S = 'S',
   M = 'M',
