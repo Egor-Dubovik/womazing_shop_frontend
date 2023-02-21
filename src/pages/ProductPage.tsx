@@ -1,5 +1,6 @@
 import ProductColors from 'components/product/ProductColor/ProductColors';
 import ProductPrice from 'components/product/ProductPrice/ProductPrice';
+import ProductSize from 'components/product/ProductSize/ProductSize';
 import { getOneProduct } from 'htttp/productApi';
 import { API_URL } from 'htttp/url';
 import React, { FC, useEffect, useState } from 'react';
@@ -33,7 +34,11 @@ const ProductPage: FC = () => {
             </Col>
             <Col>
               <ProductPrice price={product.price} discountPrice={product.discount_price} />
-              <Row>Choose a size {product.size}</Row>
+
+              <div>
+                <h5>Choose a size</h5>
+                <ProductSize size={product.size} />
+              </div>
 
               <Row style={{}}>
                 <h5>Colors</h5>

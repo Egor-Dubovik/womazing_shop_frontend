@@ -49,3 +49,7 @@ export interface IProductPrice {
   price: number;
   discountPrice: number;
 }
+
+export interface IProductSize {
+  size: Size[];
+}

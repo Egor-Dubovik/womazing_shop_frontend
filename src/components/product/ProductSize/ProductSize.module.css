@@ -1,0 +1,20 @@
+.SizeBlock {
+  display: flex;
+  gap: 14px;
+}
+
+.Size,
+.ActiveSize {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 41px;
+  height: 41px;
+  border: 1px solid #000000;
+  color: #000000;
+}
+
+.ActiveSize {
+  background-color: #000000;
+  color: #fff;
+}
