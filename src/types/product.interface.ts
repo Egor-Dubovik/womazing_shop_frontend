@@ -44,3 +44,8 @@ export interface ICreate {
   show: boolean;
   onHide: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface IProductPrice {
+  price: number;
+  discountPrice: number;
+}
