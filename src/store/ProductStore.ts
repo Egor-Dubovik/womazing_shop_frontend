@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { IBrandProduct, IProduct, ITypeProduct } from 'types/product.interface';
+import { IBrandProduct, IProduct, ITypeProduct, Size } from 'types/product.interface';
 
 // interface IProductStore {
 //   _isAuth: boolean;
@@ -9,26 +9,38 @@ class ProductStore {
   _types: ITypeProduct[];
   _brands: IBrandProduct[];
   _product: IProduct[];
+  _size: Size[];
   _selectedType: ITypeProduct | Record<string, never>;
   _selectedBrand: IBrandProduct | Record<string, never>;
+  _selectedSize: Size | null;
 
   constructor() {
     this._types = [];
     this._brands = [];
     this._product = [];
+    this._size = [];
 
     this._selectedType = {};
     this._selectedBrand = {};
+    this._selectedSize = null;
     makeAutoObservable(this);
   }
 
   //actions
+  setSelectedSize(value: Size | null): void {
+    this._selectedSize = value;
+  }
+
   setSelectedBrand(type: IBrandProduct | Record<string, never>): void {
     this._selectedBrand = type;
   }
 
   setSelectedType(type: ITypeProduct | Record<string, never>): void {
     this._selectedType = type;
+  }
+
+  setSize(value: Size[]): void {
+    this._size = value;
   }
 
   setTypes(value: ITypeProduct[]): void {
@@ -43,12 +55,20 @@ class ProductStore {
     this._product = product;
   }
 
+  get selectedSize(): Size | null {
+    return this._selectedSize;
+  }
+
   get selectedBrand(): IBrandProduct | Record<string, never> {
     return this._selectedBrand;
   }
 
   get selectedType(): ITypeProduct | Record<string, never> {
     return this._selectedType;
+  }
+
+  get size(): Size[] {
+    return this._size;
   }
 
   get types(): ITypeProduct[] {

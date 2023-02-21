@@ -1,45 +1,62 @@
-import { getOneProduct } from 'htttp/productApi';
+import { getColor, getOneProduct } from 'htttp/productApi';
 import { API_URL } from 'htttp/url';
 import React, { FC, useEffect, useState } from 'react';
 import { Button, Col, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { IProduct } from 'types/product.interface';
+import { IColor, IProduct } from 'types/product.interface';
 import { getPrice } from 'utils/product';
 
 const ProductPage: FC = () => {
+  const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState<IProduct | Record<string, never>>({});
   const { id } = useParams();
 
   useEffect(() => {
-    getOneProduct(+(id as string)).then((data) => setProduct(data));
-    console.log(product);
+    setLoading(true);
+    getOneProduct(+(id as string)).then((data) => {
+      setLoading(false);
+      return setProduct(data);
+    });
   }, []);
 
   return (
-    <Col>
-      <Row>
+    <>
+      {loading ? (
+        <div>Loading</div>
+      ) : (
         <Col>
-          <Image style={{ width: 300, height: 400 }} src={API_URL + product.image}></Image>
-        </Col>
-        <Col>
-          <Row>{getPrice(product)}</Row>
-          <Row>Choose a size {product.size}</Row>
-          <Row>Choose a color {product.colors}</Row>
           <Row>
-            <h5>Описание</h5>
-            {product.info &&
-              product.info.map((info) => (
-                <Row key={info.id}>
-                  {info.title}: {info.description}
-                </Row>
-              ))}
-          </Row>
+            <Col>
+              <Image style={{ width: 300, height: 400 }} src={API_URL + product.image}></Image>
+            </Col>
+            <Col>
+              <Row>{getPrice(product)}</Row>
+              <Row>Choose a size {product.size}</Row>
 
-          <Button variant="outline-dark">add to basket</Button>
+              <Row>
+                <h5>Available colors</h5>
+                {product.color &&
+                  product.color.map((currentColor) => (
+                    <Row key={currentColor.id}>{currentColor.value}</Row>
+                  ))}
+              </Row>
+              <Row>
+                <h5>Description</h5>
+                {product.info &&
+                  product.info.map((info) => (
+                    <Row key={info.id}>
+                      {info.title}: {info.description}
+                    </Row>
+                  ))}
+              </Row>
+
+              <Button variant="outline-dark">add to basket</Button>
+            </Col>
+          </Row>
+          <Row>Another products:</Row>
         </Col>
-      </Row>
-      <Row>Products info</Row>
-    </Col>
+      )}
+    </>
   );
 };
 

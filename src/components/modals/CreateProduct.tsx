@@ -7,7 +7,7 @@ import { Col, Dropdown, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { ICreate, IProduct } from 'types/product.interface';
+import { ICreate, IProduct, Size } from 'types/product.interface';
 
 interface IProductInfo {
   title: string;
@@ -22,8 +22,6 @@ const CreateProduct: FC<ICreate> = observer(({ show, onHide }) => {
   const [price, setPrice] = useState('');
   const [discountPrice, setDiscountPrice] = useState('');
   const [file, setFile] = useState<File | null>(null);
-  // const [brand, setBrand] = useState(null);
-  // const [type, setType] = useState(null);
 
   useEffect(() => {
     getTypes().then((types) => product.setTypes(types));
@@ -63,8 +61,18 @@ const CreateProduct: FC<ICreate> = observer(({ show, onHide }) => {
     formData.append('image', file as unknown as string);
     formData.append('branId', `${product.selectedBrand.id}`);
     formData.append('typeId', `${product.selectedType.id}`);
+    formData.append('size', JSON.stringify(product.size));
+    formData.append('color', `[{"value": "red"}, {"value": "black"}]`);
     formData.append('info', JSON.stringify(info));
-    console.log(formData);
+    console.log(
+      name,
+      price,
+      discountPrice,
+      product.selectedBrand.id,
+      product.selectedType.id,
+      file,
+      [...product.size]
+    );
 
     createProduct(formData).then((data) => onHide(true));
   };
@@ -121,7 +129,9 @@ const CreateProduct: FC<ICreate> = observer(({ show, onHide }) => {
               value={discountPrice}
               onChange={(event) => setDiscountPrice(event.target.value)}
             />
-            <FormCeckBox types={['M', 'L']} />
+
+            <FormCeckBox types={['S', 'M', 'L', 'XL', 'XXL']} />
+
             <Form.Control className="mb-3" type="file" onChange={(event) => selectFile(event)} />
             <hr />
             <Button className="mb-3" variant="outline-dark" onClick={addInfo}>

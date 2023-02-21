@@ -20,6 +20,7 @@ const ProductItem: FC<IProductItem> = ({ product }) => {
         <h5>{product.name}</h5>
         <div className="d-flex">{getPrice(product)}</div>
         <div>{product.size.toString()}</div>
+        {/* <div>{product.color}</div> */}
       </Card>
     </Col>
   );

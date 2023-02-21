@@ -20,6 +20,7 @@ const Admin: FC = () => {
       <Button variant={'outline-dark'} className={'mt-3 p-2'} onClick={() => setShowProduct(true)}>
         Add product
       </Button>
+
       <CreateBrand show={showBrand} onHide={setShowBrand} />
       <CreateType show={showType} onHide={setShowType} />
       <CreateProduct show={showProduct} onHide={setShowProduct} />

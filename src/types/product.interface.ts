@@ -4,10 +4,15 @@ export interface IProduct {
   price: number;
   discount_price: number;
   size: Size[];
-  colors: string[];
+  color: IColor[];
   rating: number;
   image: string;
   info: IProductInfo[];
+}
+
+export interface IColor {
+  id?: number;
+  value: string;
 }
 
 export enum Size {
