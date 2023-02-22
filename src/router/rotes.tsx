@@ -73,7 +73,7 @@ export const authRoutes = [
     element: <Admin />,
   },
   {
-    path: BASKET_ROUTE,
+    path: BASKET_ROUTE + '/:basketId',
     element: <Basket />,
   },
 ];

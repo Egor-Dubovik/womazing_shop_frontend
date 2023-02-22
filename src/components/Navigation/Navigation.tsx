@@ -24,6 +24,8 @@ import {
 } from '../../types/constants';
 import { registration } from 'htttp/userAPI';
 import { IUser } from 'types/user.inerface';
+import jwtDecode from 'jwt-decode';
+import { IToken } from 'pages/ProductPage';
 
 // чтобы mobx отследивал значения состояний - observer
 
@@ -48,6 +50,14 @@ const Navigation: FC = observer(() => {
 
   const getLinkClasses = (isActive: boolean): string => {
     return isActive ? `${classes.Link} ${classes.ActiveLink}` : classes.Link;
+  };
+
+  const getBosketId = (): number | undefined => {
+    const encryptedToken = localStorage.getItem('token');
+    if (encryptedToken) {
+      const token = jwtDecode(encryptedToken) as IToken;
+      return token.basketId;
+    }
   };
 
   return (
@@ -93,7 +103,10 @@ const Navigation: FC = observer(() => {
                 </NavLink>
 
                 {user.isAuth && (
-                  <NavLink className={({ isActive }) => getLinkClasses(isActive)} to={BASKET_ROUTE}>
+                  <NavLink
+                    className={({ isActive }) => getLinkClasses(isActive)}
+                    to={getBosketId() ? BASKET_ROUTE + `/${getBosketId()}` : BASKET_ROUTE}
+                  >
                     Basket
                   </NavLink>
                 )}

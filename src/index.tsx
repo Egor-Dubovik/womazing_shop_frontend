@@ -1,6 +1,7 @@
 import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
+import BasketStore from 'store/BasketStore';
 import ProductStore from 'store/ProductStore';
 import UserStore from 'store/UserStore';
 import { IAppContext } from 'types/app.interface';
@@ -14,6 +15,7 @@ root.render(
     value={{
       user: new UserStore(),
       product: new ProductStore(),
+      basket: new BasketStore(),
     }}
   >
     <Router>

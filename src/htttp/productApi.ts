@@ -47,7 +47,7 @@ export const getAllProducts = async (
   return data;
 };
 
-export const getOneProduct = async (id: number) => {
+export const getOneProduct = async (id: number): Promise<IProduct> => {
   const { data } = await $host.get(`api/product/${id}`);
   return data;
 };
