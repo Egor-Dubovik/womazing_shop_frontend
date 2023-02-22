@@ -1,26 +1,40 @@
 import ProductColors from 'components/product/ProductColor/ProductColors';
 import ProductPrice from 'components/product/ProductPrice/ProductPrice';
 import ProductSize from 'components/product/ProductSize/ProductSize';
+import { createBasketProduct } from 'htttp/basketApi';
 import { getOneProduct } from 'htttp/productApi';
 import { API_URL } from 'htttp/url';
-import React, { FC, useEffect, useState } from 'react';
+import { Context } from 'index';
+import { observer } from 'mobx-react-lite';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { Button, Col, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { IProduct } from 'types/product.interface';
+import { getTokenData } from 'utils/tokenAction';
 
-const ProductPage: FC = () => {
+const ProductPage: FC = observer(() => {
+  const { basket } = useContext(Context);
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState<IProduct | Record<string, never>>({});
   const { id } = useParams();
 
   useEffect(() => {
     setLoading(true);
-    getOneProduct(+(id as string))
+    getOneProduct(Number(id as string))
       .then((data) => setProduct(data))
       .then((data) => {
         setLoading(false);
       });
   }, []);
+
+  const addToBasket = () => {
+    const tokenData = getTokenData();
+    if (tokenData) {
+      const data = createBasketProduct(product.id, tokenData.basketId);
+      console.log(data);
+      console.log(product.id, tokenData.basketId);
+    }
+  };
 
   return (
     <>
@@ -59,7 +73,9 @@ const ProductPage: FC = () => {
                   ))}
               </Row>
 
-              <Button variant="outline-dark">add to basket</Button>
+              <Button variant="outline-dark" onClick={addToBasket}>
+                add to basket
+              </Button>
             </Col>
           </Row>
           <Row>Another products:</Row>
@@ -67,6 +83,6 @@ const ProductPage: FC = () => {
       )}
     </>
   );
-};
+});
 
 export default ProductPage;

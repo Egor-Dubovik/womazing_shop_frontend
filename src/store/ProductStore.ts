@@ -52,7 +52,6 @@ class ProductStore {
   setSelectedBrand(brand: IBrandProduct | Record<string, never>): void {
     this.setPage(1);
     this._selectedBrand = brand;
-    console.log(this._selectedBrand.id);
   }
 
   setSelectedType(type: ITypeProduct | Record<string, never>): void {
@@ -81,7 +80,6 @@ class ProductStore {
   }
 
   get selectedBrand(): IBrandProduct | Record<string, never> {
-    console.log(this._selectedBrand.id);
     return this._selectedBrand;
   }
 
