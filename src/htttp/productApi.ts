@@ -37,8 +37,13 @@ export const getBrands = async () => {
   return data;
 };
 
-export const getAllProducts = async () => {
-  const { data } = await $host.get('api/product');
+export const getAllProducts = async (
+  typeId: number | undefined,
+  brandId: number | undefined,
+  page: number,
+  limit: number
+) => {
+  const { data } = await $host.get('api/product', { params: { typeId, brandId, page, limit } });
   return data;
 };
 

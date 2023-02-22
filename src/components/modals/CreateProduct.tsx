@@ -26,7 +26,9 @@ const CreateProduct: FC<ICreate> = observer(({ show, onHide }) => {
   useEffect(() => {
     getTypes().then((types) => product.setTypes(types));
     getBrands().then((brands) => product.setBrands(brands));
-    getAllProducts().then((products) => product.setAllProduct(products.rows));
+    getAllProducts(product.selectedType.id, product.selectedBrand.id, product.page, 2).then(
+      (products) => product.setAllProduct(products.rows)
+    );
   }, []);
 
   const addInfo = (): void => {
@@ -59,7 +61,7 @@ const CreateProduct: FC<ICreate> = observer(({ show, onHide }) => {
     formData.append('price', price);
     formData.append('discount_price', discountPrice);
     formData.append('image', file as unknown as string);
-    formData.append('branId', `${product.selectedBrand.id}`);
+    formData.append('brandId', `${product.selectedBrand.id}`);
     formData.append('typeId', `${product.selectedType.id}`);
     formData.append('size', JSON.stringify(product.size));
     formData.append(

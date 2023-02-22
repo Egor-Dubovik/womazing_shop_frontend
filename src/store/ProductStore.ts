@@ -13,12 +13,18 @@ class ProductStore {
   _selectedType: ITypeProduct | Record<string, never>;
   _selectedBrand: IBrandProduct | Record<string, never>;
   _selectedSize: Size | null;
+  _totalCount: number;
+  _productLimit: number;
+  _page: number;
 
   constructor() {
     this._types = [];
     this._brands = [];
     this._product = [];
     this._size = [];
+    this._page = 1;
+    this._totalCount = 10; //количество товара доступного по запросу
+    this._productLimit = 3; //кл-во товара на одной странице
 
     this._selectedType = {};
     this._selectedBrand = {};
@@ -27,15 +33,30 @@ class ProductStore {
   }
 
   //actions
+  setPage(page: number): void {
+    this._page = page;
+  }
+
+  setProductLimit(limit: number): void {
+    this._productLimit = limit;
+  }
+
+  setTotalCount(count: number): void {
+    this._totalCount = count;
+  }
+
   setSelectedSize(value: Size | null): void {
     this._selectedSize = value;
   }
 
-  setSelectedBrand(type: IBrandProduct | Record<string, never>): void {
-    this._selectedBrand = type;
+  setSelectedBrand(brand: IBrandProduct | Record<string, never>): void {
+    this.setPage(1);
+    this._selectedBrand = brand;
+    console.log(this._selectedBrand.id);
   }
 
   setSelectedType(type: ITypeProduct | Record<string, never>): void {
+    this.setPage(1);
     this._selectedType = type;
   }
 
@@ -60,6 +81,7 @@ class ProductStore {
   }
 
   get selectedBrand(): IBrandProduct | Record<string, never> {
+    console.log(this._selectedBrand.id);
     return this._selectedBrand;
   }
 
@@ -81,6 +103,18 @@ class ProductStore {
 
   get product(): IProduct[] {
     return this._product;
+  }
+
+  get page(): number {
+    return this._page;
+  }
+
+  get totalCount(): number {
+    return this._totalCount;
+  }
+
+  get productLimit(): number {
+    return this._productLimit;
   }
 }
 
